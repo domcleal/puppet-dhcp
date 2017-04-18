@@ -6,7 +6,7 @@ describe 'dhcp::failover' do
       conf_path = (os =~ /^FreeBSD/i) ? '/usr/local/etc' : '/etc/dhcp'
       describe "dhcp::failover class on #{os}" do
         let(:pre_condition) {
-          "class { '::dhcp': interfaces => ['eth0']}"
+          "class { '::dhcp': interfaces => ['eth0'], includes => ['a']}"
         }
 
         let(:params) do {
@@ -35,6 +35,7 @@ describe 'dhcp::failover' do
             '  max-unacked-updates 10;',
             '  load balance max seconds 3;',
             '  mclt 300;', '  split 128;',
+            '  include "a";',
             '}'
           ])
         }
